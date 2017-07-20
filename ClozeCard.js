@@ -4,6 +4,7 @@ var ClozeCard = function (text, cloze) {
 	this.fulltext = text;
 	this.cloze = cloze;
 	this.partial = this.fulltext.replace(this.cloze, "...");
+	this.type = ClozeCard;
 
 	var n = this.fulltext.search(cloze);
 	

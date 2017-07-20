@@ -10,22 +10,19 @@ var inquirer = require("inquirer");
 
 
 var one = new BasicCard ("What color is the moon", "White");
-var two = new BasicCard ("What color is the dark side of the moon", "black");
-var three = new ClozeCard ("We will we will rock you", "rock");
+var two = new ClozeCard ("We will we will rock you", "rock");
+var three = new BasicCard ("What color is the dark side of the moon", "black");
 var four = new ClozeCard ("A dog is a mans best friend", "dog");
 
 var questions_array = [one, two, three, four];
-
-var Basic_cards_array = [one, two]; // temporary for fun
-var ClozeCard_array = [three, four]; // temporary for fun
-
-
 var counter = 0;
 var correct_answer;
 var user_answer;
 
 
 var nextQuestion = function () {
+
+	if (questions_array[counter].type === BasicCard && counter < questions_array.length) {
 
 correct_answer = questions_array[counter].back.toLowerCase();
 
@@ -45,60 +42,93 @@ correct_answer = questions_array[counter].back.toLowerCase();
 
     		    	console.log("correct!");
     		    	counter++;
-    		    	console.log(counter);
-    				nextQuestion();
+    				if (counter >= questions_array.length) {
+				console.log("no more questions here!")
+				}
+
+			else {
+    		nextQuestion();	
+			}
 
     	}
 
     	else {
     		console.log("wrong!");
     		counter++;
-    		nextQuestion();
+    		if (counter >= questions_array.length) {
+				console.log("no more questions here!")
+				}
+
+			else {
+    		nextQuestion();	
+			}
     	}
     });
+}
+
+
+	if (questions_array[counter].type === ClozeCard && counter < questions_array.length) {
+
+
+		correct_answer = questions_array[counter].cloze.toLowerCase();
+
+		inquirer.prompt([ 
+
+      {
+        name: "clozequestion",
+        message: "Complete the sentence: "+questions_array[counter].partial
+      }
+    ]).then(function(answers) {
+
+    	user_answer = answers.clozequestion.toLowerCase();
+
+    	if (user_answer === correct_answer){
+
+    		    	console.log("correct!");
+    		    	counter++;
+    				if (counter >= questions_array.length) {
+					console.log("no more questions here!")
+					}
+
+					else {
+		    		nextQuestion();	
+					}
+
+
+    	}
+
+    	else {
+    		console.log("wrong!");
+    		counter++;
+
+    		if (counter >= questions_array.length) {
+				console.log("no more questions here!")
+				}
+
+			else {
+    		nextQuestion();	
+			}
+
+
+
+    	}
+
+
+
+
+
+});
+
+
+
+	}
 
 
 }
 
 
-// var nextCloze = function () {
-
-
-// 	correct_answer = ClozeCard_array[counter].cloze.toLowerCase();
-
-// 		inquirer.prompt([ 
-
-//       {
-//         name: "clozequestion",
-//         message: "Complete the sentence: "+ClozeCard_array[counter].partial
-//       }
-//     ]).then(function(answers) {
-
-//     	user_answer = answers.clozequestion.toLowerCase();
-
-//     	if (user_answer === correct_answer){
-
-//     		    	console.log("correct!");
-//     		    	counter++;
-//     		    	console.log(counter);
-//     				nextCloze();
-
-//     	}
-
-//     	else {
-//     		console.log("wrong!");
-//     		counter++;
-//     		nextCloze();
-//     	}
-
-
-
-// });
-
-// };
 nextQuestion();
 
-// nextCloze();
 
 
 
