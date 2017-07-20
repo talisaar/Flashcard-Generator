@@ -22,7 +22,7 @@ var user_answer;
 
 var nextQuestion = function () {
 
-	if (questions_array[counter].type === BasicCard && counter < questions_array.length) {
+	if (questions_array[counter].type === BasicCard) {
 
 correct_answer = questions_array[counter].back.toLowerCase();
 
@@ -67,7 +67,7 @@ correct_answer = questions_array[counter].back.toLowerCase();
 }
 
 
-	if (questions_array[counter].type === ClozeCard && counter < questions_array.length) {
+	if (questions_array[counter].type === ClozeCard) {
 
 
 		correct_answer = questions_array[counter].cloze.toLowerCase();
